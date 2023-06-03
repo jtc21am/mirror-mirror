@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirror Mirror - Welcome</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">    <!-- Custom CSS -->
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/html_style.css'%}"/>
+    <!-- Carousel CSS -->
+    <link rel="stylesheet" href="{% static 'css/carousel_style.css'%}"/>
+</head>
+{% block site_content %}
+<body class="body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col page-title">
+                <h1>Welcome</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div id="ace-fact-sheet">
+                    <p>Our early childhood experiences can affect our health and wellbeing as adults. <br>
+                        In fact, traumatic childhood experiences are surprisingly common; <br>
+                        roughly two-thirds of us have lived through at least one.</p>
+                        <br>
+
+                    <p>The 10 Adverse Childhood Experiences (ACEs):</p>
+                        <ul id="ace-list">
+                            <li>Sexual Abuse</li>
+                            <li>Physical Abuse</li>
+                            <li>Emotional Abuse</li>
+                            <li>Physical Neglect</li>
+                            <li>Emotional Neglect</li>
+                            <li>Domestic Violence</li>
+                            <li>Parents divorced or separated</li>
+                            <li>Household member/s has been incarcerated</li>
+                            <li>Parent or caregiver addicted to drugs or alcohol</li>
+                            <li>Parent or caregiver who is depressed or mentally ill</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="row">
+            <div class="col" id="quiz-nudge">
+                <!--Calling it "quiz-nudge" since it encourages folks to take the quiz-->
+                <br>
+                <p><i>Taking the ACE quiz is a pivotal starting point in one's healing journey.</i></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="button-div">
+                    <button id="quiz-btn" class="button"><a href="{% url 'ace-quiz' %}">Take Quiz</a></button>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col carousel">
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 5</div>
+                        <img src="{% static 'css/carousels/assets/carousel-2-images/pexels-mart-production-7277897.jpg'%}" style="width:100%" height="600px">
+                        <div class="text"><span class="highlight">All of us have something we are dealing with.</span></div>
+                    </div>
+                    
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 5</div>
+                        <img src="{% static 'css/carousels/assets/carousel-2-images/pexels-andi-alexander-2691185.jpg'%}" style="width:100%" height="600px"> 
+                        <div class="text"><span class="highlight">Recalling memories- some painful, others valuable lessons.</span></div>
+                    </div>
+                    
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 5</div>
+                        <img src="{% static 'css/carousels/assets/carousel-2-images/pexels-ogo-1764594.jpg'%}" style="width:100%" height="600px">
+                        <div class="text"><span class="highlight">There is hope in all of this.</span></div>
+                    </div>
+                    
+                    <div class="mySlides fade">
+                        <div class="numbertext">4 / 5</div>
+                        <img src="{% static 'css/carousels/assets/carousel-2-images/pexels-mikhail-nilov-6932075.jpg'%}" style="width:100%" height="600px">
+                        <div class="text"><span class="highlight">Taking the 1st step can be challenging.</span></div>
+                    </div>
+                    
+                    <div class="mySlides fade">
+                        <div class="numbertext">5 / 5</div>
+                        <img src="{% static 'css/carousels/assets/carousel-2-images/pexels-vie-studio-7004950.jpg'%}" style="width:100%" height="600px">
+                        <div class="text"><span class="highlight">It's ok to not be ok. Choose the best path for your healing.</span></div>
+                    </div>
+                    
+                </div>
+                <br>
+                    
+                <div style="text-align:center">
+                    <span class="dot"></span> 
+                    <span class="dot"></span> 
+                    <span class="dot"></span>
+                    <span class="dot"></span> 
+                    <span class="dot"></span>   
+                </div>
+
+                <h4 id="carousel-2-caption"><i>Reflecting on the past can allow you to make better decisions that improve your mental health, wellness, and self-care practices moving forward.</i></h4>
+                    
+                <script>
+                    let slideIndex = 0;
+                    showSlides();
+                      
+                    function showSlides() {
+                        let i;
+                        let slides = document.getElementsByClassName("mySlides");
+                        let dots = document.getElementsByClassName("dot");
+                        for (i = 0; i < slides.length; i++) {
+                          slides[i].style.display = "none";  
+                        }
+                        slideIndex++;
+                        if (slideIndex > slides.length) {slideIndex = 1}    
+                        for (i = 0; i < dots.length; i++) {
+                          dots[i].className = dots[i].className.replace(" active", "");
+                        }
+                        slides[slideIndex-1].style.display = "block";  
+                        dots[slideIndex-1].className += " active";
+                        setTimeout(showSlides, 3000); // Change image every 3 seconds
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'home' %}" class="home-link">Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

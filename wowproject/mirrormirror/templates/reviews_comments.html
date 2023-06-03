@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirror Mirror - Reviews/Comments</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/html_style.css'%}"/>
+</head>
+{% block site_content %}
+<body class="body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="dropdown" id="resource-review-btn">
+                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Add Resource Review
+                    </button>
+                    <form class="dropdown-menu p-4" method="POST">
+                        <div class="mb-3">
+                            {% csrf_token %}
+                            {{ resource_review_form }}
+                            <br>
+                            <input type="submit" class="review" value="Share">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="dropdown" id="website-review-btn">
+                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Add Website Review
+                    </button>
+                    <form class="dropdown-menu p-4" method="POST">
+                        <div class="mb-3">
+                            {% csrf_token %}
+                            {{ website_review_form }}
+                            <br>
+                            <input type="submit" name="add_review" value="Share" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- <div class="col"></div> -->
+
+            <div class="col">
+                <div class="dropdown" id="add-comment-btn">
+                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Add Comment
+                    </button>
+                    <form class="dropdown-menu p-4" method="POST">
+                        <div class="mb-3">
+                            {% csrf_token %}
+                            {{ comment_form }}
+                            <br>
+                            <input type="submit" name="add_comment" value="Share" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col" id="home-btn">
+                <button type="button"><a href="{% url 'home' %}" class="home-link">Home</a></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" id="reviews-border">
+                <h1 class="page-title">Reviews</h1>
+                <div class="display-box">
+                    <!-- Where content populates-->
+                    {% for review in resource_reviews %}
+                       <div class="row">
+                           <p style="color:#808080">User Resource Review # {{ forloop.revcounter }} | {{ review.created_at}}</p>
+                           <a href="{% url 'edit resource review' review.id %}"> {{ review.user_name }} </a>
+                           <p> {{ review.resource }} </p>
+                           <p>Rating: {{ review.stars }} </p>      
+                           <p> {{ review.review }} </p>      
+                           <br>
+                           <br>
+                       </div>
+                   {% endfor %}
+                    <hr>
+                   {% for review in site_reviews %}
+                       <div class="row">
+                           <p style="color:#808080">User Website Review # {{ forloop.revcounter }} | {{ review.created_at}}</p>
+                           <a href="{% url 'editsitereview' review.id %}"> {{ review.user_name }} </a>
+                           <p>Rating: {{review.stars }} </p>
+                           <p> {{ review.review }} </p>      
+                           <br>
+                           <br>
+                       </div>
+                   {% endfor %}
+                </div>
+            </div>
+    
+            <div class="col" id="comments-border">
+                <h1 class="page-title">Comments</h1>
+                <div class="display-box">
+                   {% for comment in comments %}
+                       <div>
+                           <p style="color:#808080">User Comment # {{ forloop.revcounter }} | {{ comment.created_at}}</p>
+                           <a href="{% url 'updateordelete' comment.id %}"> {{ comment.commentor_name }} </a>
+                           <p> {{ comment.description }} </p>      
+                           <br>
+                           <br>
+                       </div>
+                   {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" id="contact-us-div">
+                <button type="button">Contact Us</button>
+            </div>
+
+            <div class="col" id="spacer-div"></div>
+        </div>
+    </div>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+{% endblock %}
+</body>
+</html>
